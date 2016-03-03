@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Osrm.Client</id>
+        <version>1.0.0</version>
+        <title>Osrm.Client</title>
+        <authors>Nikita Debelov</authors>
+        <licenseUrl>https://github.com/narfunikita/Osrm.Client/blob/master/LICENSE.md</licenseUrl>
+        <projectUrl>https://github.com/narfunikita/Osrm.Client</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>A http client for OSRM</description>
+        <copyright />
+        <tags>osrm</tags>
+        <dependencies>
+            <dependency id="Newtonsoft.Json" version="7.0.1" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="..\Src\Osrm.Client\bin\Release\Osrm.Client.dll" target="lib\Osrm.Client.dll" />
+    </files>
+</package>
