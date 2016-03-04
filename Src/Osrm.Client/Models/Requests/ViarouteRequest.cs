@@ -15,6 +15,9 @@ namespace Osrm.Client
         public ViarouteRequest()
         {
             Zoom = DefaultZoom;
+            Alternative = true;
+            Geometry = true;
+            Compression = true;
         }
 
         /// <summary>
@@ -55,35 +58,64 @@ namespace Osrm.Client
         public string Output { get; set; }
 
         /// <summary>
-        /// Return route instructions for each route
+        /// Return route instructions for each route (default false)
         /// </summary>
         public bool Instructions { get; set; }
+
+        /// <summary>
+        /// Return an alternative route (default true)
+        /// Not supported in trip request
+        /// </summary>
+        public bool Alternative { get; set; }
+
+        /// <summary>
+        /// Return route geometry (default true)
+        /// </summary>
+        public bool Geometry { get; set; }
+
+        /// <summary>
+        /// Compress route geometry as a polyline; geometry is a list of [lat, lng] pairs if false (default: true)
+        /// </summary>
+        public bool Compression { get; set; }
+
+        /// <summary>
+        /// Enable u-turns at all via points (default false)
+        /// </summary>
+        public bool UTurns { get; set; }
+
+        /// <summary>
+        /// Specify after each loc. Enables/disables u-turn at the via (default false)
+        /// </summary>
+        public bool UTurnAtTheVia { get; set; }
+
+        /// <summary>
+        /// Derives the location of coordinate in the street network, one per loc (base64 string)
+        /// </summary>
+        public string Hint { get; set; }
+
+        /// <summary>
+        /// Checksum of the hint parameters.
+        /// </summary>
+        public string CheckSum { get; set; }
 
         public List<Tuple<string, string>> UrlParams
         {
             get
             {
                 var urlParams = new List<Tuple<string, string>>();
-                if (SendLocsAsEncodedPolyline)
-                {
-                    //locs
-                }
-                else
-                {
-                    urlParams.AddRange(Locations.Select(x =>
-                        new Tuple<string, string>("loc", x.Latitude.ToString("", CultureInfo.InvariantCulture)
-                            + "," + x.Longitude.ToString("", CultureInfo.InvariantCulture))));
-                }
 
-                if (Instructions)
-                {
-                    urlParams.Add(new Tuple<string, string>("instructions", "true"));
-                }
+                urlParams.AddRange(OsrmRequestBuilder.CreateLocationParams(SendLocsAsEncodedPolyline ? "locs" : "loc", Locations, SendLocsAsEncodedPolyline));
 
-                if (Zoom != DefaultZoom)
-                {
-                    urlParams.Add(new Tuple<string, string>("z", Zoom.ToString()));
-                }
+                urlParams
+                    .AddBoolParameter("instructions", Instructions, false)
+                    .AddStringParameter("z", Zoom.ToString(), () => Zoom != DefaultZoom)
+                    .AddBoolParameter("alt", Alternative, true)
+                    .AddBoolParameter("geometry", Geometry, true)
+                    .AddBoolParameter("compression", Compression, true)
+                    .AddBoolParameter("uturns", UTurns, false)
+                    .AddBoolParameter("u", UTurnAtTheVia, false)
+                    .AddStringParameter("hint", Hint)
+                    .AddStringParameter("checksum", CheckSum);
 
                 return urlParams;
             }

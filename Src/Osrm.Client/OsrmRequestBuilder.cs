@@ -9,35 +9,35 @@ using System.Web;
 
 namespace Osrm.Client
 {
-    internal class OsrmRequestBuilder
+    internal static class OsrmRequestBuilder
     {
-        private string _url;
-        private string _service;
-        private readonly bool _useLocsEndodedPath;
-        private readonly List<Location> _locs;
-        public bool Instructions = false;
+        //private string _url;
+        //private string _service;
+        //private readonly bool _useLocsEndodedPath;
+        //private readonly List<Location> _locs;
+        //public bool Instructions = false;
 
-        public OsrmRequestBuilder()
-        {
-            _locs = new List<Location>();
-        }
+        //public OsrmRequestBuilder()
+        //{
+        //    _locs = new List<Location>();
+        //}
 
-        public OsrmRequestBuilder(string url, string service)
-            : base()
-        {
-            _url = url;
-            _service = service;
-        }
+        //public OsrmRequestBuilder(string url, string service)
+        //    : base()
+        //{
+        //    _url = url;
+        //    _service = service;
+        //}
 
-        public static OsrmRequestBuilder Build(string baseUrl, string service)
-        {
-            return new OsrmRequestBuilder(baseUrl, service);
-        }
+        //public static OsrmRequestBuilder Build(string baseUrl, string service)
+        //{
+        //    return new OsrmRequestBuilder(baseUrl, service);
+        //}
 
-        public string GetUrl(List<Tuple<string, string>> urlParams)
+        public static string GetUrl(string baseUrl, string service, List<Tuple<string, string>> urlParams)
         {
-            var uriBuilder = new UriBuilder(_url);
-            uriBuilder.Path += _service;
+            var uriBuilder = new UriBuilder(baseUrl);
+            uriBuilder.Path += service;
             var url = uriBuilder.Uri.ToString();
 
             var encodedParams = urlParams
@@ -47,6 +47,81 @@ namespace Osrm.Client
             var result = url + "?" + string.Join("&", encodedParams);
 
             return result;
+        }
+
+        public static Tuple<string, string>[] CreateLocationParams(string key, Location[] locations, bool combineToOneAsPolyline = false)
+        {
+            if (locations == null)
+            {
+                return new Tuple<string, string>[0];
+            }
+
+            if (combineToOneAsPolyline)
+            {
+                var encodedLocs = OsrmPolylineConverter.Encode(locations);
+                return new Tuple<string, string>[] { new Tuple<string, string>(key, encodedLocs) };
+            }
+            else
+            {
+                return locations.Select(x =>
+                    new Tuple<string, string>(key, x.Latitude.ToString("", CultureInfo.InvariantCulture)
+                        + "," + x.Longitude.ToString("", CultureInfo.InvariantCulture))).ToArray();
+            }
+        }
+
+        public static Tuple<string, string>[] CreateLocationParams(string key, LocationWithTimestamp[] locations, bool combineToOneAsPolyline = false)
+        {
+            if (locations == null)
+            {
+                return new Tuple<string, string>[0];
+            }
+
+            if (combineToOneAsPolyline)
+            {
+                var encodedLocs = OsrmPolylineConverter.Encode(locations);
+                return new Tuple<string, string>[] { new Tuple<string, string>(key, encodedLocs) };
+            }
+            else
+            {
+                var res = new List<Tuple<string, string>>();
+                locations.ToList().ForEach(x =>
+                {
+                    res.Add(new Tuple<string, string>(key, x.Latitude.ToString("", CultureInfo.InvariantCulture)
+                        + "," + x.Longitude.ToString("", CultureInfo.InvariantCulture)));
+                    if (x.UnixTimeStamp.HasValue)
+                    {
+                        res.AddStringParameter("t", x.UnixTimeStamp.Value.ToString());
+                    }
+                });
+
+                return res.ToArray();
+            }
+        }
+
+        //public static double DateTimeToUnixTimestamp(DateTime dateTime)
+        //{
+        //    return (TimeZoneInfo.ConvertTimeToUtc(dateTime) -
+        //           new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)).TotalSeconds;
+        //}
+
+        public static List<Tuple<string, string>> AddBoolParameter(this List<Tuple<string, string>> urlParams, string urlKey, bool param, bool defaultValue)
+        {
+            if (param != defaultValue)
+            {
+                urlParams.Add(new Tuple<string, string>(urlKey, param ? "true" : "false"));
+            }
+
+            return urlParams;
+        }
+
+        public static List<Tuple<string, string>> AddStringParameter(this List<Tuple<string, string>> urlParams, string urlKey, string value, Func<bool> condition = null)
+        {
+            if (!string.IsNullOrEmpty(value) && (condition == null || condition()))
+            {
+                urlParams.Add(new Tuple<string, string>(urlKey, value));
+            }
+
+            return urlParams;
         }
     }
 }

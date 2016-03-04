@@ -45,11 +45,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\OsrmLocation.cs" />
+    <Compile Include="Models\HintData.cs" />
+    <Compile Include="Models\LocationWithTimestamp.cs" />
+    <Compile Include="Models\Matching.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\Requests\MatchRequest.cs" />
+    <Compile Include="Models\Requests\NearestRequest.cs" />
+    <Compile Include="Models\Requests\TableRequest.cs" />
     <Compile Include="Models\Requests\ViarouteRequest.cs" />
-    <Compile Include="Models\Responces\ViarouteResponce.cs" />
+    <Compile Include="Models\Responses\TripResponse.cs" />
+    <Compile Include="Models\Responses\NearestResponse.cs" />
+    <Compile Include="Models\Responses\OsrmBaseResponse.cs" />
+    <Compile Include="Models\Responses\TableResponse.cs" />
+    <Compile Include="Models\Responses\MatchResponse.cs" />
+    <Compile Include="Models\Responses\ViarouteResponse.cs" />
     <Compile Include="Models\RouteInstruction.cs" />
     <Compile Include="Models\RouteSummary.cs" />
+    <Compile Include="Models\Trip.cs" />
     <Compile Include="OsrmClient.cs" />
     <Compile Include="OsrmRequestBuilder.cs" />
     <Compile Include="OsrmPolylineConverter.cs" />

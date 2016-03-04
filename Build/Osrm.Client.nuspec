@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Osrm.Client</id>
-        <version>1.0.0</version>
+        <version>2.0.0</version>
         <title>Osrm.Client</title>
         <authors>Nikita Debelov</authors>
         <licenseUrl>https://github.com/narfunikita/Osrm.Client/blob/master/LICENSE.md</licenseUrl>
