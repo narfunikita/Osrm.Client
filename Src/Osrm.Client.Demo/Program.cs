@@ -88,22 +88,6 @@ namespace Osrm.Client.Demo
                 Classify = true
             };
 
-            var a1 = new LocationWithTimestamp(52.542648, 13.393252, 1424684612);
-            var a2 = new LocationWithTimestamp(52.542648, 13.393252, 1424684612);
-            var a3 = new LocationWithTimestamp(52.542648, 13.393252);
-            var at1 = a1 == a2;
-            var at2 = a1 == a3;
-            var at3 = a1.Equals(a2);
-            var at4 = a1.Equals(a3);
-
-            var b1 = new Location(12.542648, 13.393252);
-            var b2 = new Location(12.542648, 13.393252);
-            var b3 = new Location(12.542648, 99.393252);
-            var bt1 = b1 == b2;
-            var bt2 = b1 == b3;
-            var bt3 = b1.Equals(b2);
-            var bt4 = b1.Equals(b3);
-
             var result = osrm.Match(request);
         }
 

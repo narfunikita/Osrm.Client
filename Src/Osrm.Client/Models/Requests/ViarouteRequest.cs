@@ -96,7 +96,7 @@ namespace Osrm.Client
         /// <summary>
         /// Checksum of the hint parameters.
         /// </summary>
-        public string CheckSum { get; set; }
+        public string Checksum { get; set; }
 
         public List<Tuple<string, string>> UrlParams
         {
@@ -115,7 +115,7 @@ namespace Osrm.Client
                     .AddBoolParameter("uturns", UTurns, false)
                     .AddBoolParameter("u", UTurnAtTheVia, false)
                     .AddStringParameter("hint", Hint)
-                    .AddStringParameter("checksum", CheckSum);
+                    .AddStringParameter("checksum", Checksum);
 
                 return urlParams;
             }

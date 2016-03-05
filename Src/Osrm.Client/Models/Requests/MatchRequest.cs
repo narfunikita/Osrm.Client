@@ -68,7 +68,7 @@ namespace Osrm.Client
         /// <summary>
         /// Checksum of the hint parameters.
         /// </summary>
-        public string CheckSum { get; set; }
+        public string Checksum { get; set; }
 
         public List<Tuple<string, string>> UrlParams
         {
@@ -86,7 +86,7 @@ namespace Osrm.Client
                    .AddStringParameter("gps_precision", GpsPrecision.ToString(), () => GpsPrecision != DefaultGpsPrecision)
                    .AddStringParameter("matching_beta", MatchingBeta.ToString(), () => MatchingBeta != DefaultMatchingBeta)
                    .AddStringParameter("hint", Hint)
-                   .AddStringParameter("checksum", CheckSum);
+                   .AddStringParameter("checksum", Checksum);
 
                 return urlParams;
             }
