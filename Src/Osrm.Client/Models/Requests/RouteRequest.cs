@@ -6,20 +6,27 @@ using System.Threading.Tasks;
 
 namespace Osrm.Client.Models
 {
-    public class MatchRequest : BaseRequest
+    public class RouteRequest : BaseRequest
     {
         protected const string DefaultGeometries = "polyline";
         protected const string DefaultOverview = "simplified";
+        protected const string DefaultContinueStraight = "default";
 
-        public MatchRequest()
+        public RouteRequest()
         {
             Geometries = DefaultGeometries;
             Overview = DefaultOverview;
-            Timestamps = new int[0];
+            ContinueStraight = DefaultContinueStraight;
         }
 
         /// <summary>
-        /// Return route steps for each route
+        /// Search for alternative routes and return as well.*
+        /// true, false (default)
+        /// </summary>
+        public bool Alternative { get; set; }
+
+        /// <summary>
+        /// Return route steps for each route leg
         /// true, false (default)
         /// </summary>
         public bool Steps { get; set; }
@@ -37,10 +44,10 @@ namespace Osrm.Client.Models
         public string Overview { get; set; }
 
         /// <summary>
-        /// Timestamp of the input location.
-        /// simplified (default), full, false
+        /// Forces the route to keep going straight at waypoints and don't do a uturn even if it would be faster. Default value depends on the profile.
+        /// default (default), true, false
         /// </summary>
-        public int[] Timestamps { get; set; }
+        public string ContinueStraight { get; set; }
 
         public override List<Tuple<string, string>> UrlParams
         {
@@ -49,10 +56,11 @@ namespace Osrm.Client.Models
                 var urlParams = new List<Tuple<string, string>>(BaseUrlParams);
 
                 urlParams
+                    .AddBoolParameter("alternatives", Alternative, false)
                     .AddBoolParameter("steps", Steps, false)
                     .AddStringParameter("geometries", Geometries, () => Geometries != DefaultGeometries)
                     .AddStringParameter("overview", Overview, () => Overview != DefaultOverview)
-                    .AddParams("timestamps", Timestamps.Select(x => x.ToString()).ToArray());
+                    .AddStringParameter("continue_straight", ContinueStraight, () => ContinueStraight != DefaultContinueStraight);
 
                 //    .AddStringParameter("z", Zoom.ToString(), () => Zoom != DefaultZoom)
                 //    .AddBoolParameter("alt", Alternative, true)

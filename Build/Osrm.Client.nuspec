@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Osrm.Client</id>
-        <version>2.0.0</version>
+        <version>3.0.0</version>
         <title>Osrm.Client</title>
         <authors>Nikita Debelov</authors>
         <licenseUrl>https://github.com/narfunikita/Osrm.Client/blob/master/LICENSE.md</licenseUrl>
         <projectUrl>https://github.com/narfunikita/Osrm.Client</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>A http client for OSRM</description>
+        <description>A http client for OSRM 4x and 5x API</description>
+        <releaseNotes>Support 5x API</releaseNotes>
         <copyright />
         <tags>osrm</tags>
         <dependencies>

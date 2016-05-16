@@ -5,15 +5,21 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Osrm.Client.Models
+namespace Osrm.Client.Models.Responses
 {
     [DataContract]
-    public class TripResponse : OsrmBaseResponse
+    public class TripResponse : BaseResponse
     {
         /// <summary>
-        /// Geometry of the route compressed as polyline, but with 6 decimals.
+        /// Array of Waypoint objects representing all waypoints in input order. Each Waypoint object has the following additional properties:
+        /// </summary>
+        [DataMember(Name = "waypoints")]
+        public Waypoint[] Waypoints { get; set; }
+
+        /// <summary>
+        /// An array of Route objects that assemble the trace.
         /// </summary>
         [DataMember(Name = "trips")]
-        public Trip[] Trips { get; set; }
+        public Route[] Trips { get; set; }
     }
 }
