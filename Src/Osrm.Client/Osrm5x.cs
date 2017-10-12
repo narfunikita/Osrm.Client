@@ -23,6 +23,11 @@ namespace Osrm.Client.v5
         /// </summary>
         public string Profile { get; set; }
 
+        /// <summary>
+        /// Timeout for web request
+        /// </summary>
+        public int Timeout { get; set; }
+
         protected readonly string RouteServiceName = "route";
         protected readonly string NearestServiceName = "nearest";
         protected readonly string TableServiceName = "table";
@@ -35,6 +40,8 @@ namespace Osrm.Client.v5
             Url = url;
             Version = version;
             Profile = profile;
+
+            Timeout = 10000;
         }
 
         /// <summary>
@@ -120,12 +127,33 @@ namespace Osrm.Client.v5
             List<Tuple<string, string>> urlParams = request.UrlParams;
             var fullUrl = OsrmRequestBuilder.GetUrl(Url, service, Version, Profile, coordinatesStr, urlParams);
             string json = null;
-            using (var client = new WebClient())
+            using (var client = new OsrmWebClient(Timeout))
             {
                 json = client.DownloadString(new Uri(fullUrl));
             }
 
             return JsonConvert.DeserializeObject<T>(json); ;
         }
+
+        private class OsrmWebClient : WebClient
+        {
+            private readonly int _timeout;
+
+            public OsrmWebClient(int timeout)
+            {
+                _timeout = timeout;
+            }
+
+            protected override WebRequest GetWebRequest(Uri address)
+            {
+                WebRequest request = base.GetWebRequest(address);
+
+                if (request != null)
+                    request.Timeout = _timeout;
+
+                return request;
+            }
+        }
+
     }
 }
