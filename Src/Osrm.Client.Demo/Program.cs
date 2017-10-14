@@ -83,8 +83,8 @@ namespace Osrm.Client.Demo
             {
                 Coordinates = locations,
                 SendCoordinatesAsPolyline = true,
-                Sources = new uint[] { 0, 1, 3 },
-                Destinations = new uint[] { 2, 4 }
+                Sources = new uint[] { 0, 1 },
+                Destinations = new uint[] { 1, 2 }
                 //Sources = src,
                 //DestinationLocations = dst
             });

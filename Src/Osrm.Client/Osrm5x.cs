@@ -24,9 +24,9 @@ namespace Osrm.Client.v5
         public string Profile { get; set; }
 
         /// <summary>
-        /// Timeout for web request
+        /// Timeout for web request. If not specified default value will be used.
         /// </summary>
-        public int Timeout { get; set; }
+        public int? Timeout { get; set; }
 
         protected readonly string RouteServiceName = "route";
         protected readonly string NearestServiceName = "nearest";
@@ -40,8 +40,6 @@ namespace Osrm.Client.v5
             Url = url;
             Version = version;
             Profile = profile;
-
-            Timeout = 10000;
         }
 
         /// <summary>
@@ -137,19 +135,19 @@ namespace Osrm.Client.v5
 
         private class OsrmWebClient : WebClient
         {
-            private readonly int _timeout;
+            private readonly int? _specificTimeout;
 
-            public OsrmWebClient(int timeout)
+            public OsrmWebClient(int? timeout = null)
             {
-                _timeout = timeout;
+                _specificTimeout = timeout;
             }
 
             protected override WebRequest GetWebRequest(Uri address)
             {
                 WebRequest request = base.GetWebRequest(address);
 
-                if (request != null)
-                    request.Timeout = _timeout;
+                if (request != null && _specificTimeout.HasValue)
+                    request.Timeout = _specificTimeout.Value;
 
                 return request;
             }
