@@ -28,6 +28,11 @@ namespace Osrm.Client.v5
         /// </summary>
         public int? Timeout { get; set; }
 
+        /// <summary>
+        /// Encoding for web request
+        /// </summary>
+        public Encoding Encoding { get; set; }
+
         protected readonly string RouteServiceName = "route";
         protected readonly string NearestServiceName = "nearest";
         protected readonly string TableServiceName = "table";
@@ -127,6 +132,7 @@ namespace Osrm.Client.v5
             string json = null;
             using (var client = new OsrmWebClient(Timeout))
             {
+                client.Encoding = Encoding ?? Encoding.Default;
                 json = client.DownloadString(new Uri(fullUrl));
             }
 
