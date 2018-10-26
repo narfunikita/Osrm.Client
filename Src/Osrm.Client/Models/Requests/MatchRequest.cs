@@ -9,11 +9,13 @@ namespace Osrm.Client.Models
     public class MatchRequest : BaseRequest
     {
         protected const string DefaultGeometries = "polyline";
+        protected const string DefaultAnnotations = "false";
         protected const string DefaultOverview = "simplified";
 
         public MatchRequest()
         {
             Geometries = DefaultGeometries;
+            Annotations = DefaultAnnotations;
             Overview = DefaultOverview;
             Timestamps = new int[0];
         }
@@ -29,6 +31,12 @@ namespace Osrm.Client.Models
         /// polyline (default), geojson
         /// </summary>
         public string Geometries { get; set; }
+
+        /// <summary>
+        /// Returns additional metadata for each coordinate along the route geometry.
+        /// true, false (default), nodes, distance, duration, datasources, weight, speed
+        /// </summary>
+        public string Annotations { get; set; }
 
         /// <summary>
         /// Add overview geometry either full, simplified according to highest zoom level it could be display on, or not at all.
@@ -51,6 +59,7 @@ namespace Osrm.Client.Models
                 urlParams
                     .AddBoolParameter("steps", Steps, false)
                     .AddStringParameter("geometries", Geometries, () => Geometries != DefaultGeometries)
+                    .AddStringParameter("annotations", Annotations, () => Annotations != DefaultAnnotations)
                     .AddStringParameter("overview", Overview, () => Overview != DefaultOverview)
                     .AddParams("timestamps", Timestamps.Select(x => x.ToString()).ToArray());
 
