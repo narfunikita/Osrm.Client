@@ -62,6 +62,7 @@
     <Compile Include="4x\Models\RouteInstruction.cs" />
     <Compile Include="4x\Models\RouteSummary.cs" />
     <Compile Include="4x\Models\Trip.cs" />
+    <Compile Include="Models\Annotation.cs" />
     <Compile Include="Models\Bearing.cs" />
     <Compile Include="Models\Leg.cs" />
     <Compile Include="Models\Requests\TripRequest.cs" />

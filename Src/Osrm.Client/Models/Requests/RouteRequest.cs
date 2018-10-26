@@ -9,6 +9,7 @@ namespace Osrm.Client.Models
     public class RouteRequest : BaseRequest
     {
         protected const string DefaultAlternatives = "false";
+        protected const string DefaultAnnotations = "false";
         protected const string DefaultGeometries = "polyline";
         protected const string DefaultOverview = "simplified";
         protected const string DefaultContinueStraight = "default";
@@ -16,6 +17,7 @@ namespace Osrm.Client.Models
         public RouteRequest()
         {
             Alternatives = DefaultAlternatives;
+            Annotations = DefaultAnnotations;
             Geometries = DefaultGeometries;
             Overview = DefaultOverview;
             ContinueStraight = DefaultContinueStraight;
@@ -32,6 +34,12 @@ namespace Osrm.Client.Models
         /// true, false (default)
         /// </summary>
         public bool Steps { get; set; }
+
+        /// <summary>
+        /// Returns additional metadata for each coordinate along the route geometry.
+        /// true,  false (default), nodes, distance, duration, datasources, weight, speed
+        /// </summary>
+        public string Annotations { get; set; }
 
         /// <summary>
         /// Returned route geometry format (influences overview and per step)
@@ -60,6 +68,7 @@ namespace Osrm.Client.Models
                 urlParams
                     .AddStringParameter("alternatives", Alternatives, () => Alternatives != DefaultAlternatives)
                     .AddBoolParameter("steps", Steps, false)
+                    .AddStringParameter("annotations", Annotations, () => Annotations != DefaultAnnotations)
                     .AddStringParameter("geometries", Geometries, () => Geometries != DefaultGeometries)
                     .AddStringParameter("overview", Overview, () => Overview != DefaultOverview)
                     .AddStringParameter("continue_straight", ContinueStraight, () => ContinueStraight != DefaultContinueStraight);

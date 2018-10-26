@@ -33,6 +33,9 @@ namespace Osrm.Client.Models
             }
         }
 
+        [DataMember(Name = "weight")]
+        public double Weight { get; set; }
+
         [DataMember(Name = "legs")]
         public RouteLeg[] Legs { get; set; }
 
