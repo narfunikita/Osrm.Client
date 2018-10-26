@@ -8,22 +8,24 @@ namespace Osrm.Client.Models
 {
     public class RouteRequest : BaseRequest
     {
+        protected const string DefaultAlternatives = "false";
         protected const string DefaultGeometries = "polyline";
         protected const string DefaultOverview = "simplified";
         protected const string DefaultContinueStraight = "default";
 
         public RouteRequest()
         {
+            Alternatives = DefaultAlternatives;
             Geometries = DefaultGeometries;
             Overview = DefaultOverview;
             ContinueStraight = DefaultContinueStraight;
         }
 
         /// <summary>
-        /// Search for alternative routes and return as well.*
-        /// true, false (default)
+        /// Search for alternative routes. Passing a number alternatives=n searches for up to  n alternative routes.
+        /// true,  false (default), or Number
         /// </summary>
-        public bool Alternative { get; set; }
+        public string Alternatives { get; set; }
 
         /// <summary>
         /// Return route steps for each route leg
@@ -56,7 +58,7 @@ namespace Osrm.Client.Models
                 var urlParams = new List<Tuple<string, string>>(BaseUrlParams);
 
                 urlParams
-                    .AddBoolParameter("alternatives", Alternative, false)
+                    .AddStringParameter("alternatives", Alternatives, () => Alternatives != DefaultAlternatives)
                     .AddBoolParameter("steps", Steps, false)
                     .AddStringParameter("geometries", Geometries, () => Geometries != DefaultGeometries)
                     .AddStringParameter("overview", Overview, () => Overview != DefaultOverview)
