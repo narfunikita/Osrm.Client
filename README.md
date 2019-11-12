@@ -2,14 +2,14 @@ Osrm.Client
 ==========
 A Http client for OSRM for 4x and 5x API
 
-Created by narfunikita https://github.com/narfunikita/
-Updated by JadYammine https://github.com/JadYammine/ on the 12 November 2019
+Created by narfunikita https://github.com/narfunikita/<br />
+Updated by JadYammine https://github.com/JadYammine/ on the 12 November 2019<br />
 
 ## Example for API 5x
 
 #Imports:
-using Osrm.Client.v5;
-using Osrm.Client.Models;
+using Osrm.Client.v5;<br />
+using Osrm.Client.Models;<br />
 
 #### Route
 ```csharp
