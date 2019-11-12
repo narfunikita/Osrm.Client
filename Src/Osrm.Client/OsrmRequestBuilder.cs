@@ -40,12 +40,18 @@ namespace Osrm.Client
             uriBuilder.Path += service;
             var url = uriBuilder.Uri.ToString();
 
-            var encodedParams = urlParams
-                .Select(x => string.Format("{0}={1}", HttpUtility.UrlEncode(x.Item1), HttpUtility.UrlEncode(x.Item2)))
-                .ToList();
-
-            var result = url + "?" + string.Join("&", encodedParams);
-
+            var result = url + "?";
+            var i = 0;
+            foreach (Tuple<string, string> ur in urlParams)
+            {
+                result = result + ur.Item1 + "=" + ur.Item2;
+                i++;
+                if (i < urlParams.Count)
+                {
+                    result = result + "&";
+                }
+                
+            }
             return result;
         }
 

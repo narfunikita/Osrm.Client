@@ -21,6 +21,7 @@ namespace Osrm.Client.Demo
             Match5x(osrm5x);
             Trip5x(osrm5x);
 
+            /*
             //  4x
             OsrmClient osrm4x = new OsrmClient(OsrmUrl);
             Route4x(osrm4x);
@@ -28,6 +29,7 @@ namespace Osrm.Client.Demo
             Match4x(osrm4x);
             Nearest4x(osrm4x);
             Trip4x(osrm4x);
+            */
         }
 
         private static void Route5x(Osrm5x osrm)
@@ -37,25 +39,25 @@ namespace Osrm.Client.Demo
                 new Location(52.516582, 13.429290),
             };
 
-            var result = osrm.Route(locations);
+            var result = osrm.RouteAsync(locations);
 
-            var result2 = osrm.Route(new RouteRequest()
+            var result2 = osrm.RouteAsync(new RouteRequest()
             {
                 Coordinates = locations,
                 Steps = true
             });
-            var result3 = osrm.Route(new RouteRequest()
+            var result3 = osrm.RouteAsync(new RouteRequest()
             {
                 Coordinates = locations,
                 SendCoordinatesAsPolyline = true
             });
 
-            var instructions3 = result2.Routes[0].Legs[0].Steps;
+            var instructions3 = result2.Result.Routes[0].Legs[0].Steps;
         }
 
         private static void Nearest5x(Osrm5x osrm)
         {
-            var result = osrm.Nearest(new Location(52.4224, 13.333086));
+            var result = osrm.NearestAsync(new Location(52.4224, 13.333086));
         }
 
         private static void Table5x(Osrm5x osrm)
@@ -67,10 +69,10 @@ namespace Osrm.Client.Demo
             };
 
             //Returns a 3x3 matrix:
-            var result = osrm.Table(locations);
+            var result = osrm.TableAsync(locations);
 
             //Returns a 1x3 matrix:
-            var result2 = osrm.Table(new Osrm.Client.Models.TableRequest()
+            var result2 = osrm.TableAsync(new Osrm.Client.Models.TableRequest()
             {
                 Coordinates = locations,
                 Sources = new uint[] { 0 }
@@ -79,7 +81,7 @@ namespace Osrm.Client.Demo
             });
 
             //Returns a asymmetric 3x2 matrix with from the polyline encoded locations qikdcB}~dpXkkHz:
-            var result3 = osrm.Table(new Osrm.Client.Models.TableRequest()
+            var result3 = osrm.TableAsync(new Osrm.Client.Models.TableRequest()
             {
                 Coordinates = locations,
                 SendCoordinatesAsPolyline = true,
@@ -103,7 +105,7 @@ namespace Osrm.Client.Demo
                 Coordinates = locations
             };
 
-            var result = osrm.Match(request);
+            var result = osrm.MatchAsync(request);
         }
 
         private static void Trip5x(Osrm5x osrm)
@@ -113,9 +115,9 @@ namespace Osrm.Client.Demo
                 new Location(52.516582, 13.429290),
             };
 
-            var result = osrm.Trip(locations);
+            var result = osrm.TripAsync(locations);
         }
-
+        /*
         #region 4x
 
         private static void Route4x(OsrmClient osrm)
@@ -125,22 +127,22 @@ namespace Osrm.Client.Demo
                 new Location(52.516582, 13.429290),
             };
 
-            var result = osrm.Route(locations);
+            var result = osrm.RouteAsync(locations);
 
-            var result2 = osrm.Route(new ViarouteRequest()
+            var result2 = osrm.RouteAsync(new ViarouteRequest()
             {
                 Locations = locations,
                 SendLocsAsEncodedPolyline = true,
                 Alternative = false,
             });
 
-            var result3 = osrm.Route(new ViarouteRequest()
+            var result3 = osrm.RouteAsync(new ViarouteRequest()
             {
                 Locations = locations,
                 Instructions = true,
                 Zoom = 5
             });
-            var instructions3 = result3.RouteInstructions;
+            var instructions3 = result3.Result.RouteInstructions;
         }
 
         private static void Table4x(OsrmClient osrm)
@@ -152,7 +154,7 @@ namespace Osrm.Client.Demo
                 new Location(52.554070, 13.160621),
             };
 
-            var result = osrm.Table(locations);
+            var result = osrm.TableAsync(locations);
 
             var src = new Location[] {
                 new Location(52.554070, 13.160621),
@@ -164,7 +166,7 @@ namespace Osrm.Client.Demo
                 new Location(52.554070, 13.160621),
             };
 
-            var result2 = osrm.Table(new TableRequest()
+            var result2 = osrm.TableAsync(new TableRequest()
             {
                 SourceLocations = src,
                 DestinationLocations = dst
@@ -186,12 +188,12 @@ namespace Osrm.Client.Demo
                 Classify = true
             };
 
-            var result = osrm.Match(request);
+            var result = osrm.MatchAsync(request);
         }
 
         private static void Nearest4x(OsrmClient osrm)
         {
-            var result = osrm.Nearest(new Location(52.4224, 13.333086));
+            var result = osrm.NearestAsync(new Location(52.4224, 13.333086));
         }
 
         private static void Trip4x(OsrmClient osrm)
@@ -201,9 +203,10 @@ namespace Osrm.Client.Demo
                 new Location(52.516582, 13.429290),
             };
 
-            var result = osrm.Trip(locations);
+            var result = osrm.TripAsync(locations);
         }
 
         #endregion 4x
+        */
     }
 }
