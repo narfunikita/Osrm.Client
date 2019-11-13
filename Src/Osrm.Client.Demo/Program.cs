@@ -15,12 +15,13 @@ namespace Osrm.Client.Demo
         private static void Main(string[] args)
         {
             var osrm5x = new Osrm5x(OsrmUrl);
-            Route5x(osrm5x);
-            Nearest5x(osrm5x);
+            //Route5x(osrm5x);
+            //Nearest5x(osrm5x);
             Table5x(osrm5x);
-            Match5x(osrm5x);
-            Trip5x(osrm5x);
-
+            //Match5x(osrm5x);
+            //Trip5x(osrm5x);
+            Console.WriteLine("Main");
+            Console.ReadLine();
             /*
             //  4x
             OsrmClient osrm4x = new OsrmClient(OsrmUrl);
@@ -70,7 +71,10 @@ namespace Osrm.Client.Demo
 
             //Returns a 3x3 matrix:
             var result = osrm.TableAsync(locations);
-
+            
+            //Console.WriteLine(result.Result.Durations.ToString());
+            //var b = result;
+            /*
             //Returns a 1x3 matrix:
             var result2 = osrm.TableAsync(new Osrm.Client.Models.TableRequest()
             {
@@ -89,7 +93,7 @@ namespace Osrm.Client.Demo
                 Destinations = new uint[] { 1, 2 }
                 //Sources = src,
                 //DestinationLocations = dst
-            });
+            });*/
         }
 
         private static void Match5x(Osrm5x osrm)

@@ -81,12 +81,13 @@ namespace Osrm.Client
             {
                 return new Tuple<string, string>[0];
             }
-
+            /*
             if (combineToOneAsPolyline)
             {
                 var encodedLocs = OsrmPolylineConverter.Encode(locations);
                 return new Tuple<string, string>[] { new Tuple<string, string>(key, encodedLocs) };
             }
+            */
             else
             {
                 return locations.Select(x =>
@@ -101,12 +102,13 @@ namespace Osrm.Client
             {
                 return string.Empty;
             }
+            /*
+        if (combineToOneAsPolyline)
+        {
+            var encodedLocs = OsrmPolylineConverter.Encode(locations, 1E5);
+            return "polyline(" + encodedLocs + ")";
 
-            if (combineToOneAsPolyline)
-            {
-                var encodedLocs = OsrmPolylineConverter.Encode(locations, 1E5);
-                return "polyline(" + encodedLocs + ")";
-            }
+        } */
             else
             {
                 return string.Join(";", locations.Select(x => x.Longitude.ToString("", CultureInfo.InvariantCulture)
@@ -120,12 +122,13 @@ namespace Osrm.Client
             {
                 return new Tuple<string, string>[0];
             }
-
+            /*
             if (combineToOneAsPolyline)
             {
                 var encodedLocs = OsrmPolylineConverter.Encode(locations);
                 return new Tuple<string, string>[] { new Tuple<string, string>(key, encodedLocs) };
             }
+            */
             else
             {
                 var res = new List<Tuple<string, string>>();
