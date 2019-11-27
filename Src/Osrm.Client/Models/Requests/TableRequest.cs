@@ -32,9 +32,9 @@ namespace Osrm.Client.Models
             {
                 var urlParams = new List<Tuple<string, string>>(BaseUrlParams);
 
-               // urlParams
-               //     .AddParams("sources", Sources.Select(x => x.ToString()).ToArray())
-                //    .AddParams("destinations", Destinations.Select(x => x.ToString()).ToArray());
+                urlParams
+                    .AddParams("sources", Sources.Select(x => x.ToString()).ToArray())
+                    .AddParams("destinations", Destinations.Select(x => x.ToString()).ToArray());
 
                 //    .AddStringParameter("z", Zoom.ToString(), () => Zoom != DefaultZoom)
                 //    .AddBoolParameter("alt", Alternative, true)

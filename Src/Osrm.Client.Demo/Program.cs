@@ -66,12 +66,14 @@ namespace Osrm.Client.Demo
             var locations = new Location[] {
                 new Location(52.517037, 13.388860),
                 new Location(52.529407, 13.397634),
-                new Location(52.523219, 13.428555)
+                new Location(52.523219, 13.428555),
+                new Location(52.517037, 13.388860)
             };
 
             //Returns a 3x3 matrix:
-            var result = osrm.TableAsync(locations);
-            
+            //var result = osrm.TableAsync(locations);
+
+
             //Console.WriteLine(result.Result.Durations.ToString());
             //var b = result;
             /*
@@ -82,18 +84,27 @@ namespace Osrm.Client.Demo
                 Sources = new uint[] { 0 }
                 //Sources = src,
                 //DestinationLocations = dst
-            });
+            });*/
 
             //Returns a asymmetric 3x2 matrix with from the polyline encoded locations qikdcB}~dpXkkHz:
             var result3 = osrm.TableAsync(new Osrm.Client.Models.TableRequest()
             {
                 Coordinates = locations,
                 SendCoordinatesAsPolyline = true,
-                Sources = new uint[] { 0, 1 },
+                Sources = new uint[] { 0},
                 Destinations = new uint[] { 1, 2 }
                 //Sources = src,
                 //DestinationLocations = dst
-            });*/
+            });
+
+            foreach (var i in result3.Result.Durations)
+            {
+                foreach (var j in i)
+                {
+                    Console.WriteLine(j.ToString());
+
+                }
+            }
         }
 
         private static void Match5x(Osrm5x osrm)
