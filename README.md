@@ -2,7 +2,15 @@ Osrm.Client
 ==========
 A Http client for OSRM for 4x and 5x API
 
+Created by narfunikita https://github.com/narfunikita/<br />
+Updated by JadYammine https://github.com/JadYammine/ on the 12 November 2019<br />
+
 ## Example for API 5x
+
+#Imports:
+using Osrm.Client.v5;<br />
+using Osrm.Client.Models;<br />
+
 #### Route
 ```csharp
 var osrm = new Osrm5x("http://router.project-osrm.org/");
@@ -94,6 +102,10 @@ var result = osrm.Trip(locations);
 
 
 ## Example for API 4x
+## Please remove all comments to allow test runs of 4x. (only tests are commented since http://router.project-osrm.org/ no longer supports 4x)
+#Imports
+using Osrm.Client;
+using Osrm.Client.Models;
 #### Route
 ```csharp
 var osrm = new OsrmClient("http://router.project-osrm.org/");

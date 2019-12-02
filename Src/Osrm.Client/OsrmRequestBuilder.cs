@@ -40,12 +40,18 @@ namespace Osrm.Client
             uriBuilder.Path += service;
             var url = uriBuilder.Uri.ToString();
 
-            var encodedParams = urlParams
-                .Select(x => string.Format("{0}={1}", HttpUtility.UrlEncode(x.Item1), HttpUtility.UrlEncode(x.Item2)))
-                .ToList();
-
-            var result = url + "?" + string.Join("&", encodedParams);
-
+            var result = url + "?";
+            var i = 0;
+            foreach (Tuple<string, string> ur in urlParams)
+            {
+                result = result + ur.Item1 + "=" + ur.Item2;
+                i++;
+                if (i < urlParams.Count)
+                {
+                    result = result + "&";
+                }
+                
+            }
             return result;
         }
 
@@ -75,12 +81,13 @@ namespace Osrm.Client
             {
                 return new Tuple<string, string>[0];
             }
-
+            /*
             if (combineToOneAsPolyline)
             {
                 var encodedLocs = OsrmPolylineConverter.Encode(locations);
                 return new Tuple<string, string>[] { new Tuple<string, string>(key, encodedLocs) };
             }
+            */
             else
             {
                 return locations.Select(x =>
@@ -95,12 +102,13 @@ namespace Osrm.Client
             {
                 return string.Empty;
             }
+            /*
+        if (combineToOneAsPolyline)
+        {
+            var encodedLocs = OsrmPolylineConverter.Encode(locations, 1E5);
+            return "polyline(" + encodedLocs + ")";
 
-            if (combineToOneAsPolyline)
-            {
-                var encodedLocs = OsrmPolylineConverter.Encode(locations, 1E5);
-                return "polyline(" + encodedLocs + ")";
-            }
+        } */
             else
             {
                 return string.Join(";", locations.Select(x => x.Longitude.ToString("", CultureInfo.InvariantCulture)
@@ -114,12 +122,13 @@ namespace Osrm.Client
             {
                 return new Tuple<string, string>[0];
             }
-
+            /*
             if (combineToOneAsPolyline)
             {
                 var encodedLocs = OsrmPolylineConverter.Encode(locations);
                 return new Tuple<string, string>[] { new Tuple<string, string>(key, encodedLocs) };
             }
+            */
             else
             {
                 var res = new List<Tuple<string, string>>();
