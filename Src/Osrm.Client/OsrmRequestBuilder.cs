@@ -84,7 +84,7 @@ namespace Osrm.Client
             
             if (combineToOneAsPolyline)
             {
-                var encodedLocs = HttpUtility.UrlEncode(OsrmPolylineConverter.Encode(locations));
+                var encodedLocs = OsrmPolylineConverter.Encode(locations);
                 return new Tuple<string, string>[] { new Tuple<string, string>(key, encodedLocs) };
             }
             
@@ -105,7 +105,7 @@ namespace Osrm.Client
             
         if (combineToOneAsPolyline)
         {
-            var encodedLocs = HttpUtility.UrlEncode(OsrmPolylineConverter.Encode(locations, 1E5));
+            var encodedLocs = OsrmPolylineConverter.Encode(locations, 1E5);
             return "polyline(" + encodedLocs + ")";
 
         } 
@@ -125,7 +125,7 @@ namespace Osrm.Client
             
             if (combineToOneAsPolyline)
             {
-                var encodedLocs = HttpUtility.UrlEncode(OsrmPolylineConverter.Encode(locations));
+                var encodedLocs = OsrmPolylineConverter.Encode(locations);
                 return new Tuple<string, string>[] { new Tuple<string, string>(key, encodedLocs) };
             }
             
