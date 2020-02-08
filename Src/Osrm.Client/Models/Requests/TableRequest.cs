@@ -8,11 +8,21 @@ namespace Osrm.Client.Models
 {
     public class TableRequest : BaseRequest
     {
+
+        protected const string DefaultAnnotations = "false";
+
         public TableRequest()
         {
             Sources = new uint[0];
             Destinations = new uint[0];
+            Annotations = DefaultAnnotations;
         }
+
+        /// <summary>
+        /// Returns additional metadata for each coordinate along the route geometry.
+        /// true, false (default), nodes, distance, duration, datasources, weight, speed
+        /// </summary>
+        public string Annotations { get; set; }
 
         /// <summary>
         /// Use location with given index as source.
@@ -34,6 +44,7 @@ namespace Osrm.Client.Models
 
                 urlParams
                     .AddParams("sources", Sources.Select(x => x.ToString()).ToArray())
+                    .AddStringParameter("annotations", Annotations, () => Annotations != DefaultAnnotations)
                     .AddParams("destinations", Destinations.Select(x => x.ToString()).ToArray());
 
                 //    .AddStringParameter("z", Zoom.ToString(), () => Zoom != DefaultZoom)

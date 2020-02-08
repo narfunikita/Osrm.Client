@@ -80,7 +80,7 @@ namespace Osrm.Client.Models
                 return (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFrom(InstructionElements[i]);
                 //return (T)instructionElements[i];
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return default(T);
             }

@@ -16,10 +16,16 @@ namespace Osrm.Client.Models
         [DataMember(Name = "duration")]
         public double Duration { get; set; }
 
-        [DataMember(Name = "steps")]
-        public RouteStep[] Steps { get; set; }
+        [DataMember(Name = "weight")]
+        public double Weight { get; set; }
 
         [DataMember(Name = "summary")]
         public string Summary { get; set; }
+
+        [DataMember(Name = "steps")]
+        public RouteStep[] Steps { get; set; }
+
+        [DataMember(Name = "annotation")]
+        public Annotation Annotation { get; set; }
     }
 }
