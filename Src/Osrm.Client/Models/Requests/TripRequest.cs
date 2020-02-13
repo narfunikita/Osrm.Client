@@ -8,6 +8,7 @@ namespace Osrm.Client.Models
 {
     public class TripRequest : BaseRequest
     {
+        protected const string DefaultAnnotations = "false";
         protected const string DefaultGeometries = "polyline";
         protected const string DefaultOverview = "simplified";
 
@@ -15,7 +16,9 @@ namespace Osrm.Client.Models
         {
             Geometries = DefaultGeometries;
             Overview = DefaultOverview;
+            Annotations = DefaultAnnotations;
         }
+
 
         /// <summary>
         /// Return route instructions for each trip
@@ -24,8 +27,9 @@ namespace Osrm.Client.Models
 
         /// <summary>
         /// Returns additional metadata for each coordinate along the route geometry.
+        /// true, false (default), nodes, distance, duration, datasources, weight, speed
         /// </summary>
-        public bool Annotate { get; set; }
+        public string Annotations { get; set; }
 
         /// <summary>
         /// Returned route geometry format (influences overview and per step)
@@ -47,7 +51,7 @@ namespace Osrm.Client.Models
 
                 urlParams
                     .AddBoolParameter("steps", Steps, false)
-                    .AddBoolParameter("annotate", Annotate, false)
+                    .AddStringParameter("annotations", Annotations, () => Annotations != DefaultAnnotations)
                     .AddStringParameter("geometries", Geometries, () => Geometries != DefaultGeometries)
                     .AddStringParameter("overview", Overview, () => Overview != DefaultOverview);
 

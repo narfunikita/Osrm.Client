@@ -9,7 +9,7 @@ namespace Osrm.Client
 {
     internal class OsrmPolylineConverter
     {
-        public const double DefaultFactor = 1E6;
+        public const double DefaultFactor = 1E5;
 
         public static IEnumerable<Location> Decode(string encodedPoints, double factor = DefaultFactor)
         {

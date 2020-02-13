@@ -17,6 +17,12 @@ namespace Osrm.Client.Models.Responses
         public double[][] Durations { get; set; }
 
         /// <summary>
+        /// array of arrays that stores the matrix in row-major order. distances[i][j] gives the travel distance from the i-th waypoint to the j-th waypoint. Values are given in meters.
+        /// </summary>
+        [DataMember(Name = "distances")]
+        public double[][] Distances { get; set; }
+
+        /// <summary>
         /// array of Waypoint objects describing all sources in order
         /// </summary>
         [DataMember(Name = "sources")]
@@ -27,5 +33,7 @@ namespace Osrm.Client.Models.Responses
         /// </summary>
         [DataMember(Name = "destinations")]
         public Waypoint[] Destinations { get; set; }
+
+
     }
 }
