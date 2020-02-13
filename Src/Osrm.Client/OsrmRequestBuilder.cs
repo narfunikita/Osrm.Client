@@ -58,7 +58,7 @@ namespace Osrm.Client
         public static string GetUrl(string server, string service, string version, string profile, string coordinatesString, List<Tuple<string, string>> urlParams)
         {
             var uriBuilder = new UriBuilder(server);
-            uriBuilder.Path += service + "/" + version + "/" + profile + "/" + coordinatesString;
+            uriBuilder.Path += service + "/" + version + "/" + profile + "/" + coordinatesString.Replace('/', 'O');
             var url = uriBuilder.Uri.ToString();
 
             string result = url;
@@ -66,7 +66,7 @@ namespace Osrm.Client
                 && urlParams.Count > 0)
             {
                 var encodedParams = urlParams
-                    .Select(x => string.Format("{0}={1}", HttpUtility.UrlEncode(x.Item1), HttpUtility.UrlEncode(x.Item2)))
+                    .Select(x => string.Format("{0}={1}", System.Net.WebUtility.UrlEncode(x.Item1), System.Net.WebUtility.UrlEncode(x.Item2)))
                     .ToList();
 
                 result += "?" + string.Join("&", encodedParams);
@@ -84,7 +84,7 @@ namespace Osrm.Client
             
             if (combineToOneAsPolyline)
             {
-                var encodedLocs = System.Net.WebUtility.UrlEncode(OsrmPolylineConverter.Encode(locations));
+                var encodedLocs = OsrmPolylineConverter.Encode(locations);
                 return new Tuple<string, string>[] { new Tuple<string, string>(key, encodedLocs) };
             }
             
@@ -105,7 +105,7 @@ namespace Osrm.Client
             
         if (combineToOneAsPolyline)
         {
-            var encodedLocs = System.Net.WebUtility.UrlEncode(OsrmPolylineConverter.Encode(locations, 1E5));
+            var encodedLocs = OsrmPolylineConverter.Encode(locations, 1E5);
             return "polyline(" + encodedLocs + ")";
 
         } 
@@ -125,7 +125,7 @@ namespace Osrm.Client
             
             if (combineToOneAsPolyline)
             {
-                var encodedLocs = System.Net.WebUtility.UrlEncode(OsrmPolylineConverter.Encode(locations));
+                var encodedLocs = OsrmPolylineConverter.Encode(locations);
                 return new Tuple<string, string>[] { new Tuple<string, string>(key, encodedLocs) };
             }
             

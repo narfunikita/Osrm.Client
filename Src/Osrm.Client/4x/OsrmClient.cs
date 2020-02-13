@@ -171,8 +171,6 @@ namespace Osrm.Client
         {
             
             var fullUrl = OsrmRequestBuilder.GetUrl(Url, service, urlParams);
-            Console.WriteLine(fullUrl);
-            Console.WriteLine(fullUrl); 
             var responseString = await client.GetStringAsync(fullUrl);
 
 
